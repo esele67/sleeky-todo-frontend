@@ -5,18 +5,19 @@
   --light-text: #666666;
   --border-color: #dddddd;
   --white: #ffffff;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
   --red: #e74c3c;
   --yellow: #f1c40f;
   --blue: #3498db;
   --light-gray: #f5f5f5;
+  --dim-background: #ededed;
 }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-  background-color: #f5f5f5;
+  background-color: var(--dim-background);
   margin: 0;
-  padding: 0;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,23 +28,29 @@ body {
   width: 800px;
   max-width: 90%;
   background: var(--white);
-  box-shadow: var(--shadow);
-  border-radius: 4px;
-  overflow: hidden;
+  box-shadow: var(--shadow), 0 8px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  overflow: visible; 
   margin: 0 auto;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transform: translateZ(0);
 }
 
 .todo-header {
   background: var(--teal);
-  padding: 20px;
+  padding: 25px;
   text-align: center;
   color: var(--white);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
 }
 
 .todo-header h1 {
   margin: 0;
   font-size: 28px;
   font-weight: normal;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .todo-tabs {
@@ -51,6 +58,8 @@ body {
   border-bottom: 1px solid var(--border-color);
   padding: 0 20px;
   justify-content: center;
+  background-color: var(--white);
+  flex-wrap: wrap;
 }
 
 .todo-tab {
@@ -60,32 +69,40 @@ body {
   cursor: pointer;
   border-bottom: 3px solid transparent;
   margin-right: 10px;
+  transition: all 0.2s ease;
 }
 
 .todo-tab.active {
   color: var(--teal);
   border-bottom: 3px solid var(--teal);
+  font-weight: 500;
 }
 
 .todo-content {
-  padding: 20px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-height: 80vh; 
+  overflow-y: auto;
+  width: 100%; 
+  box-sizing: border-box;
 }
 
-/* TaskForm styles */
 .form-container {
   background: var(--white);
-  border-radius: 4px;
+  border-radius: 8px;
   width: 100%;
   max-width: 600px;
   margin: 0 auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .task-form {
-  padding: 20px;
+  padding: 25px;
   display: none;
+  width: 100%; 
+  box-sizing: border-box;
 }
 
 .task-form.active {
@@ -94,20 +111,21 @@ body {
 }
 
 .task-form h2 {
-  margin: 0 0 20px;
+  margin: 0 0 25px;
   color: var(--dark-text);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
   text-align: center;
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  width: 100%; 
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   color: var(--dark-text);
   font-weight: 500;
 }
@@ -115,20 +133,25 @@ body {
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border: 1px solid var(--border-color);
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 16px;
   color: var(--dark-text);
   box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+.form-group textarea {
+  min-height: 100px; 
+  resize: vertical; 
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: var(--teal);
-  box-shadow: 0 0 0 1px rgba(91, 173, 166, 0.2);
+  box-shadow: 0 0 0 2px rgba(91, 173, 166, 0.2);
 }
 
 .form-group input::placeholder,
@@ -146,18 +169,26 @@ body {
   background-color: var(--teal);
   color: var(--white);
   border: none;
-  border-radius: 4px;
-  padding: 12px 20px;
+  border-radius: 6px;
+  padding: 14px 24px;
   font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
   display: block;
-  margin: 0 auto;
-  width: 50%;
+  margin: 8px auto 0;
+  width: 60%;
+  box-shadow: 0 2px 6px rgba(91, 173, 166, 0.2);
 }
 
 .submit-btn:hover:not(:disabled) {
   background-color: #4d9b95;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(91, 173, 166, 0.3);
+}
+
+.submit-btn:active:not(:disabled) {
+  transform: translateY(0);
 }
 
 .submit-btn:disabled {
@@ -165,7 +196,6 @@ body {
   cursor: not-allowed;
 }
 
-/* TodoList styles */
 .todo-list {
   width: 100%;
   max-width: 600px;
@@ -173,9 +203,9 @@ body {
 }
 
 .todo-list h2 {
-  margin: 0 0 20px;
+  margin: 0 0 25px;
   color: var(--dark-text);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
   text-align: center;
 }
@@ -186,22 +216,26 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  width: 100%; 
 }
 
 .task-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 16px;
   background-color: var(--light-purple);
-  border-radius: 4px;
-  transition: transform 0.2s, box-shadow 0.2s;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  width: 100%; 
+  box-sizing: border-box;
 }
 
 .task-item:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .task-checkbox {
@@ -211,7 +245,7 @@ body {
 }
 
 .task-checkbox input[type="checkbox"] {
-  margin-right: 10px;
+  margin-right: 12px;
   height: 18px;
   width: 18px;
   cursor: pointer;
@@ -222,29 +256,32 @@ body {
   font-size: 16px;
   color: var(--dark-text);
   cursor: pointer;
+  word-break: break-word; 
 }
 
 .task-actions {
   display: flex;
   gap: 12px;
+  flex-wrap: wrap;
 }
 
 .icon-button {
   border: none;
   background: none;
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: var(--light-text);
-  transition: background-color 0.2s, color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .icon-button:hover {
   background-color: rgba(0, 0, 0, 0.05);
+  transform: scale(1.1);
 }
 
 .icon-button i {
@@ -273,47 +310,49 @@ body {
 
 .loading {
   text-align: center;
-  padding: 20px;
+  padding: 25px;
   color: var(--light-text);
   font-style: italic;
 }
 
 .no-tasks {
   text-align: center;
-  padding: 30px;
+  padding: 35px;
   color: var(--light-text);
   background-color: rgba(0, 0, 0, 0.02);
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 16px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.03);
 }
 
-/* Modal styles */
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
   animation: fadeIn 0.25s ease;
+  backdrop-filter: blur(2px);
 }
 
 .modal-content {
   background-color: var(--white);
-  border-radius: 8px;
+  border-radius: 10px;
   width: 90%;
   max-width: 500px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   animation: scaleIn 0.3s ease;
   overflow: hidden;
 }
 
 .modal-header {
-  padding: 18px 24px;
+  padding: 20px 25px;
   border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
@@ -340,7 +379,7 @@ body {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  transition: background-color 0.2s, color 0.2s;
+  transition: all 0.2s ease;
   padding: 0;
   line-height: 1;
 }
@@ -348,10 +387,11 @@ body {
 .close-button:hover {
   background-color: rgba(0, 0, 0, 0.05);
   color: var(--dark-text);
+  transform: scale(1.1);
 }
 
 .modal-body {
-  padding: 24px;
+  padding: 25px;
 }
 
 .modal-body h4 {
@@ -369,20 +409,21 @@ body {
 }
 
 .task-description {
-  padding: 16px;
+  padding: 18px;
   background-color: var(--light-gray);
-  border-radius: 6px;
+  border-radius: 8px;
   margin-bottom: 20px;
   color: var(--dark-text);
   line-height: 1.5;
   font-size: 15px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .task-status {
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   font-size: 15px;
   color: var(--dark-text);
 }
@@ -400,9 +441,9 @@ body {
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 24px;
-  padding-top: 16px;
+  gap: 15px;
+  margin-top: 25px;
+  padding-top: 18px;
   border-top: 1px solid var(--border-color);
 }
 
@@ -410,32 +451,36 @@ body {
   background-color: #f5f5f5;
   border: 1px solid var(--border-color);
   color: var(--dark-text);
-  padding: 10px 18px;
-  border-radius: 4px;
+  padding: 12px 20px;
+  border-radius: 6px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
 }
 
 .cancel-btn:hover {
   background-color: #e5e5e5;
+  transform: translateY(-1px);
 }
 
 .save-btn {
   background-color: var(--teal);
   border: 1px solid var(--teal);
   color: var(--white);
-  padding: 10px 18px;
-  border-radius: 4px;
+  padding: 12px 20px;
+  border-radius: 6px;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(91, 173, 166, 0.2);
 }
 
 .save-btn:hover:not(:disabled) {
   background-color: #4d9b95;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(91, 173, 166, 0.3);
 }
 
 .save-btn:disabled {
@@ -443,7 +488,7 @@ body {
   cursor: not-allowed;
 }
 
-/* CompletedTasks styles */
+
 .completed-tasks {
   width: 100%;
   max-width: 600px;
@@ -457,9 +502,9 @@ body {
 }
 
 .completed-tasks h2 {
-  margin: 0 0 20px;
+  margin: 0 0 25px;
   color: var(--dark-text);
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 500;
   text-align: center;
 }
@@ -470,22 +515,26 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
+
 
 .completed-task-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px;
+  padding: 16px;
   background-color: var(--light-gray);
-  border-radius: 4px;
-  transition: background-color 0.2s;
-  opacity: 0.8;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  opacity: 0.85;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
 }
 
 .completed-task-item:hover {
   background-color: #ebebeb;
+  opacity: 0.95;
+  transform: translateY(-2px);
 }
 
 .completed-label {
@@ -500,7 +549,7 @@ body {
   color: var(--light-text);
 }
 
-/* Toast notification */
+
 .toast-container {
   position: fixed;
   top: 20px;
@@ -514,12 +563,12 @@ body {
 .toast-message {
   background-color: var(--teal);
   color: white;
-  padding: 12px 20px;
-  border-radius: 4px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  padding: 14px 22px;
+  border-radius: 6px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   font-size: 14px;
   animation: slideIn 0.3s ease-out, fadeOut 0.5s ease-in 3s forwards;
-  min-width: 200px;
+  min-width: 220px;
 }
 
 @keyframes slideIn {
@@ -563,22 +612,134 @@ body {
   }
 }
 
+
+@media (max-width: 768px) {
+  .todo-container {
+    width: 95%;
+    margin: 15px auto;
+  }
+  
+  .todo-content {
+    padding: 20px 15px;
+  }
+  
+  .task-form,
+  .todo-list,
+  .completed-tasks {
+    max-width: 100%;
+  }
+  
+  .submit-btn {
+    width: 80%;
+  }
+}
+
 @media (max-width: 600px) {
+  .todo-header {
+    padding: 20px 15px;
+  }
+  
+  .todo-header h1 {
+    font-size: 24px;
+  }
+  
   .todo-tabs {
-    padding: 0 10px;
+    padding: 0;
+    justify-content: space-around;
   }
   
   .todo-tab {
-    padding: 15px 10px;
+    padding: 12px 5px;
+    font-size: 14px;
+    margin-right: 0;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .task-form h2,
+  .todo-list h2,
+  .completed-tasks h2 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
     font-size: 14px;
   }
   
   .task-item,
   .completed-task-item {
     padding: 12px;
+    flex-wrap: wrap;
+  }
+  
+  .task-checkbox {
+    margin-bottom: 8px;
+    width: 100%;
+  }
+  
+  .task-actions {
+    width: 100%;
+    justify-content: flex-end;
   }
   
   .task-checkbox label {
+    font-size: 14px;
+  }
+  
+  .icon-button {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .modal-content {
+    width: 95%;
+    max-width: 450px;
+  }
+  
+  .modal-header {
+    padding: 15px;
+  }
+  
+  .modal-body {
+    padding: 15px;
+  }
+  
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .cancel-btn,
+  .save-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .todo-tab {
+    font-size: 13px;
+    padding: 10px 2px;
+  }
+  
+  .task-form {
+    padding: 15px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  .submit-btn {
+    padding: 12px;
+    width: 100%;
+    font-size: 14px;
+  }
+  
+  .task-description {
+    padding: 12px;
     font-size: 14px;
   }
   
@@ -589,31 +750,5 @@ body {
   
   .icon-button i {
     font-size: 16px;
-  }
-  
-  .modal-content {
-    width: 95%;
-  }
-  
-  .modal-header {
-    padding: 16px 20px;
-  }
-  
-  .modal-body {
-    padding: 20px;
-  }
-  
-  .modal-header h3 {
-    font-size: 18px;
-  }
-  
-  .task-description {
-    padding: 14px;
-  }
-  
-  .task-form h2,
-  .todo-list h2,
-  .completed-tasks h2 {
-    font-size: 18px;
   }
 }
